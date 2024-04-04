@@ -1,6 +1,4 @@
-import requests
-from api_key import key
-
+from helpers.api_calls import *
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -11,21 +9,26 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('PyCharm')
 
-puuid = "fim3v7XndQ81afZ9hStzRoJKi-fNiYxZgmTw3PVpOvL_NajGErBPZIMCWAZm09ZvjSWu8gLTPEafeA"
 
-match_data_url = "https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/" + puuid + "/ids?start=0&count=20"
+username = input("Input Riot username: ")
 
-account_data_url = "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Anonymous%20Bosch/euw"
+tagline = input("Input user region: ")
 
-headers = {
-    # "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-    "Accept-Language": "en-GB,en;q=0.5",
-    "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
-    # "Origin": "https://developer.riotgames.com",
-    "X-Riot-Token": key
-}
 
-req = requests.get(account_data_url, headers=headers)
+account_data = get_account_data(username, tagline)
 
-print(req.json())
+puuid = account_data["puuid"]
 
+number_of_matches = 0
+
+print(puuid)
+
+while number_of_matches <= 0:
+    number_of_matches = input("Please input number of matches: ")
+    if not isinstance(number_of_matches, int):
+        number_of_matches = 20
+
+
+matches = get_match_data(puuid, number_of_matches)
+
+# todo - iterate through list of matches to present match data
