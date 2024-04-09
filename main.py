@@ -17,6 +17,8 @@ tagline = input("Input user region: ")
 
 account_data = get_account_data(username, tagline)
 
+print(account_data)
+
 puuid = account_data["puuid"]
 
 number_of_matches = 0
@@ -24,11 +26,19 @@ number_of_matches = 0
 print(puuid)
 
 while number_of_matches <= 0:
-    number_of_matches = input("Please input number of matches: ")
-    if not isinstance(number_of_matches, int):
-        number_of_matches = 20
+    number_of_matches = int(input("Please input number of matches: "))
+    if number_of_matches > 0:
+        break
 
 
 matches = get_match_data(puuid, number_of_matches)
 
+print(matches)
+
 # todo - iterate through list of matches to present match data
+match_details_list = []
+
+for match in matches:
+    match_details_list.append(get_match_details(match))
+
+print(match_details_list)

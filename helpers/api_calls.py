@@ -29,9 +29,13 @@ def get_account_data(username, tagline):
 
 match_data_url = f'https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/'
 
+match_details_url = "https://europe.api.riotgames.com/tft/match/v1/matches/"
+
 
 def get_match_data(puuid, number_of_games):
     return requests.get(f'{match_data_url}{puuid}/ids?start=0&count={number_of_games}', headers=headers).json()
 
 
+def get_match_details(match_id):
+    return requests.get(f'{match_details_url}{match_id}', headers=headers).json()
 
