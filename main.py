@@ -26,7 +26,10 @@ number_of_matches = 0
 print(puuid)
 
 while number_of_matches <= 0:
-    number_of_matches = int(input("Please input number of matches: "))
+    try:
+        number_of_matches = int(input("Please input number of matches: "))
+    except ValueError:
+        print("not a number")
     if number_of_matches > 0:
         break
 
@@ -41,4 +44,7 @@ match_details_list = []
 for match in matches:
     match_details_list.append(get_match_details(match))
 
-print(match_details_list)
+for match in match_details_list:
+    print(match['metadata']['participants'])
+
+
