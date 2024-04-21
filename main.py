@@ -19,6 +19,9 @@ account_data = get_account_data(username, tagline)
 
 print(account_data)
 
+if 'status' in account_data:
+    quit()
+
 puuid = account_data["puuid"]
 
 number_of_matches = 0

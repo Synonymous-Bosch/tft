@@ -19,13 +19,14 @@ headers = {
 
 def get_account_data(username, tagline):
     try:
-        r = requests.get(account_data_url+f'{username}/{tagline}', headers=headers).json()
-        return r
-    except requests.exceptions.RequestException:
-        print(requests.exceptions.RequestException)
-
+        r = requests.get(account_data_url+f'{username}/{tagline}', headers=headers)
+    except requests.exceptions.RequestException as err:
+        return repr(err)
+    else:
+        return r.json()
 
 # puuid = account_data["puuid"]
+
 
 match_data_url = f'https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/'
 
@@ -33,9 +34,19 @@ match_details_url = "https://europe.api.riotgames.com/tft/match/v1/matches/"
 
 
 def get_match_data(puuid, number_of_games):
-    return requests.get(f'{match_data_url}{puuid}/ids?start=0&count={number_of_games}', headers=headers).json()
+    try:
+        r = requests.get(f'{match_data_url}{puuid}/ids?start=0&count={number_of_games}', headers=headers)
+    except requests.exceptions.RequestException as err:
+        return repr(err)
+    else:
+        return r.json()
 
 
 def get_match_details(match_id):
-    return requests.get(f'{match_details_url}{match_id}', headers=headers).json()
+    try:
+        r = requests.get(f'{match_details_url}{match_id}', headers=headers)
+    except requests.exceptions.RequestException as err:
+        return repr(err)
+    else:
+        return r.json()
 
